@@ -74,7 +74,7 @@ do_gen_git_tags() {
     cp -vf ${f} Dockerfile
     git add -f Dockerfile
     git commit -m "Update Dockerfile for ${tag}"
-    git tag -f "${tag}"
+    git tag "${tag}"
     rm -f Dockerfile
   done
 }
