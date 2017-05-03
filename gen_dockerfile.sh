@@ -93,7 +93,7 @@ do_gen_git_branches() {
 
 do_push_git_branches() {
   for r in $(git remote); do
-    for b in $(git branch); do
+    for b in $(git show-ref --heads | awk '{print $2}' | sed 's|refs/heads/||'); do
       echo "=> git push ${r} ${b}:${b}"
       git push "${r}" "${b}:${b}" --force
     done
