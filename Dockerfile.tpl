@@ -11,6 +11,7 @@ RUN apt-get update;\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt &&\
     sudo -iu openwrt wget "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
+    sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt mv "$(basename ${OPENWRT_SDK_URL%%.tar.bz2})" openwrt &&\
     sudo -iu openwrt openwrt/scripts/feeds update
 
