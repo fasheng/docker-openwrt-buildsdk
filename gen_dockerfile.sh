@@ -83,10 +83,21 @@ do_push_git_branches() {
   for r in $(git remote); do
     for b in $(git show-ref --heads | awk '{print $2}' | sed 's|refs/heads/||'); do
       echo "=> git push ${r} ${b}:${b}"
-      git push "${r}" ":${b}" --force
+      git push "${r}" "${b}:${b}" --force
     done
   done
-  git checkout master
+}
+
+do_push_git_tags() {
+  # use this instead of "git push --tags" to trigger docker hub
+  # autobuild
+  for r in $(git remote); do
+    for t in $(git tag); do
+      echo "=> git push ${r} ${t}:${t}"
+      git push "${r}" "${t}:${t}" --force
+      sleep 5
+    done
+  done
 }
 
 do_${1}

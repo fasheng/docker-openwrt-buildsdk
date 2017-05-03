@@ -25,16 +25,26 @@ Full version and architecture OpenWrt build SDK Docker images
   $ gen_dockerfile.sh gen_dockerfiles
   ```
 
-- 更新对应的 git tags, 用于触发 Docker Hub 自动化构建
+- 更新对应的 git tags
   ```
-  $ gen_dockerfile.sh gen_git_tag
+  $ gen_dockerfile.sh gen_git_tags
+  ```
+
+- 上传 git tags, 用于触发 Docker Hub 自动化构建, 避免使用 `git push
+  --tags` 命令
+  ```
+  $ gen_dockerfile.sh push_git_tags
   ```
 
 **部署**
 
 ```
 $ git checkout 15.05.1-ar71xx
-$ docker build --tag openwrt-buildsdk:15.05.1-ar71xx .
+# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
+```
+或者
+```
+# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
 ```
 
 **运行**
@@ -47,11 +57,11 @@ $ docker build --tag openwrt-buildsdk:15.05.1-ar71xx .
 $ mkdir out-dl-dir out-bin-dir
 $ echo 'src-git extra https://github.com/shangjiyu/openwrt-extra.git' > in-feed-conf
 $ chmod a+rwx -R in-feed-conf out-dl-dir out-bin-dir
-# docker run --detach -ti \
+# docker run -ti \
     -v in-feed-conf:/home/openwrt/openwrt/feeds.conf.default \
     -v out-dl-dir:/home/openwrt/openwrt/dl \
     -v out-bin-dir:/home/openwrt/openwrt/bin \
-    --name running-openwrt-buildsdk-15.05.1-ar71xx openwrt-buildsdk:15.05.1-ar71xx
+    fasheng/openwrt-buildsdk:15.05.1-ar71xx
 docker> ./scripts/feeds update extra
 docker> ./scripts/feeds install ngrokc
 docker> make
