@@ -1,8 +1,8 @@
 FROM ubuntu:14.04
 
 ENV OPENWRT_SDK_VERSION 15.05
-ENV OPENWRT_SDK_ARCH cns3xxx
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05/cns3xxx/generic/OpenWrt-SDK-15.05-cns3xxx_gcc-4.8-linaro_uClibc-0.9.33.2_eabi.Linux-x86_64.tar.bz2
+ENV OPENWRT_SDK_ARCH imx6
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05/imx6/generic/OpenWrt-SDK-15.05-imx6_gcc-4.8-linaro_uClibc-0.9.33.2_eabi.Linux-x86_64.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y git-core subversion build-essential gcc-multilib libssl-dev \
