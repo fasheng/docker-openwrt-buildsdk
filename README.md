@@ -1,34 +1,34 @@
-Full version and architecture openwrt buildsdk docker images
+Full version and architecture OpenWrt build SDK Docker images
 
 **gen_dockerfile.sh 生成脚本简介**
 
 由于 OpenWrt 不同的版本和架构分别对应指定的 SDK, 为了方便部署, 目录下
- `gen_dockerfile.sh` 用来生成对应的 Dockerfile
+ `gen_dockerfile.sh` 用来生成对应的 Dockerfile.
 
-获取当前支持的 OpenWrt 主版本号
-```
-$ gen_dockerfile.sh list_support_versions
-```
+- 获取当前支持的 OpenWrt 主版本号
+  ```
+  $ gen_dockerfile.sh list_support_versions
+  ```
 
-通过网页抓取各版本架构的 SDK 链接
-```
-$ gen_dockerfile.sh gen_sdk_sources
-```
+- 通过网页抓取各版本架构的 SDK 链接
+  ```
+  $ gen_dockerfile.sh gen_sdk_sources
+  ```
 
-列出抓取成功的 OpenWrt 版本架构信息
-```
-$ gen_dockerfile.sh list_sdk_sources
-```
+- 列出抓取成功的 OpenWrt 版本架构信息
+  ```
+  $ gen_dockerfile.sh list_sdk_sources
+  ```
 
-生成各版本架构对应的 Dockerfile
-```
-$ gen_dockerfile.sh gen_dockerfiles
-```
+- 生成各版本架构对应的 Dockerfile
+  ```
+  $ gen_dockerfile.sh gen_dockerfiles
+  ```
 
-更新对应的 git branches, 用于触发 Docker HUB 自动化构建
-```
-$ gen_dockerfile.sh gen_git_branches
-```
+- 更新对应的 git tags, 用于触发 Docker Hub 自动化构建
+  ```
+  $ gen_dockerfile.sh gen_git_tag
+  ```
 
 **部署**
 

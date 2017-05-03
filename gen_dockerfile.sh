@@ -68,34 +68,22 @@ do_gen_dockerfiles() {
   echo "Done, see result in folder dockerfiles"
 }
 
-is_branch_exists() {
-  if git show-ref --verify -q refs/heads/"$1"; then
-    return 0
-  else
-    return 1
-  fi
-}
-do_gen_git_branches() {
+do_gen_git_tags() {
   for f in _dockerfiles/Dockerfile-*; do
-    git checkout master
-    local branch="${f##_dockerfiles/Dockerfile-}"
-    if is_branch_exists "${branch}"; then
-      git checkout "${branch}"
-    else
-      git checkout -b "${branch}"
-    fi
+    local tag="${f##_dockerfiles/Dockerfile-}"
     cp -vf ${f} Dockerfile
     git add -f Dockerfile
-    git commit -m "Update Dockerfile for ${branch}"
+    git commit -m "Update Dockerfile for ${tag}"
+    git tag -f "${tag}"
+    rm -f Dockerfile
   done
-  git checkout master
 }
 
 do_push_git_branches() {
   for r in $(git remote); do
     for b in $(git show-ref --heads | awk '{print $2}' | sed 's|refs/heads/||'); do
       echo "=> git push ${r} ${b}:${b}"
-      git push "${r}" "${b}:${b}" --force
+      git push "${r}" ":${b}" --force
     done
   done
   git checkout master
