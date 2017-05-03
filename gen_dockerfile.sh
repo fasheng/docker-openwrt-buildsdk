@@ -94,7 +94,8 @@ do_gen_git_branches() {
 do_push_git_branches() {
   for r in $(git remote); do
     for b in $(git branch); do
-      git push "${r}" "${b}:${b}"
+      echo "=> git push ${r} ${b}:${b}"
+      git push "${r}" "${b}:${b}" --force
     done
   done
   git checkout master
