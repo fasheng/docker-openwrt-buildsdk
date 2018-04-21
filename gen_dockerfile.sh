@@ -2,6 +2,7 @@
 
 download_site="https://downloads.openwrt.org"
 openwrt_versions=(
+  "LEDE::17.01.4"
   "chaos_calmer::15.05.1"
   "chaos_calmer::15.05"
   "barrier_breaker::14.07"
@@ -20,12 +21,17 @@ do_gen_sdk_sources() {
   for v in ${openwrt_versions[@]}; do
     local code="$(echo ${v} | awk -F:: '{print $1}')"
     local version="$(echo ${v} | awk -F:: '{print $2}')"
-    local base_url="${download_site}/${code}/${version}"
+    local base_url
+    if [ "${code}" = "LEDE" ]; then
+      base_url="${download_site}/releases/${version}/targets"
+    else
+      base_url="${download_site}/${code}/${version}"
+    fi
     local archs="$(w3m -dump "${base_url}/" | sed 1,+3d | grep '\s-\s' | awk '{print $1}' | sed 's#/$##')"
     for a in ${archs}; do
       # echo "arch: ${a} ${base_url}/${a}/generic/"
       local sdk_file=""
-      sdk_file="$(w3m -dump ${base_url}/${a}/generic/ | grep 'OpenWrt-SDK' | awk '{print $1}' | head -1)"
+      sdk_file="$(w3m -dump ${base_url}/${a}/generic/ | grep 'lede-sdk|OpenWrt-SDK' | awk '{print $1}' | head -1)"
       if [ -n "${sdk_file}" ]; then
         openwrt_sdk_sources+=("${version}::${a}::${base_url}/${a}/generic/${sdk_file}")
       else
@@ -83,7 +89,7 @@ do_push_git_branches() {
   for r in $(git remote); do
     for b in $(git show-ref --heads | awk '{print $2}' | sed 's|refs/heads/||'); do
       echo "=> git push ${r} ${b}:${b}"
-      git push "${r}" "${b}:${b}" --force
+      git push "${r}" "${b}:${b}"
     done
   done
 }
