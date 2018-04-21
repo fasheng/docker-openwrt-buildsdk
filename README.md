@@ -7,33 +7,33 @@ Full version and architecture OpenWrt build SDK Docker images
 
 - 获取当前支持的 OpenWrt 主版本号
   ```
-  $ gen_dockerfile.sh list_support_versions
+  $ ./gen_dockerfile.sh list_support_versions
   ```
 
 - 通过网页抓取各版本架构的 SDK 链接
   ```
-  $ gen_dockerfile.sh gen_sdk_sources
+  $ ./gen_dockerfile.sh gen_sdk_sources
   ```
 
 - 列出抓取成功的 OpenWrt 版本架构信息
   ```
-  $ gen_dockerfile.sh list_sdk_sources
+  $ ./gen_dockerfile.sh list_sdk_sources
   ```
 
 - 生成各版本架构对应的 Dockerfile
   ```
-  $ gen_dockerfile.sh gen_dockerfiles
+  $ ./gen_dockerfile.sh gen_dockerfiles
   ```
 
 - 更新对应的 git tags
   ```
-  $ gen_dockerfile.sh gen_git_tags
+  $ ./gen_dockerfile.sh gen_git_tags
   ```
 
 - 上传 git tags, 用于触发 Docker Hub 自动化构建, 避免使用 `git push
   --tags` 命令
   ```
-  $ gen_dockerfile.sh push_git_tags
+  $ ./gen_dockerfile.sh push_git_tags
   ```
 
 **部署**
