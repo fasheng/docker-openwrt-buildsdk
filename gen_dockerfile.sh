@@ -59,7 +59,7 @@ do_list_sdk_sources() {
 
 do_gen_dockerfiles() {
   source ./openwrt_sdk_sources.sh
-  mkdir -p dockerfiles
+  mkdir -p _dockerfiles
   for s in "${openwrt_sdk_sources[@]}"; do
     local version="$(echo ${s} | awk -F:: '{print $1}')"
     local arch="$(echo ${s} | awk -F:: '{print $2}')"
