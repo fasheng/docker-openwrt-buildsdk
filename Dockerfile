@@ -1,8 +1,8 @@
 FROM ubuntu:14.04
 
 ENV OPENWRT_SDK_VERSION 14.07
-ENV OPENWRT_SDK_ARCH ar71xx
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/barrier_breaker/14.07/ar71xx/generic/OpenWrt-SDK-ar71xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
+ENV OPENWRT_SDK_ARCH atheros
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/barrier_breaker/14.07/atheros/generic/OpenWrt-SDK-atheros-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y git-core subversion ccache build-essential gcc-multilib libssl-dev \
