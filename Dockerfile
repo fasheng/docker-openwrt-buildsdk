@@ -1,8 +1,8 @@
 FROM ubuntu:14.04
 
-ENV OPENWRT_SDK_VERSION 15.05.1
-ENV OPENWRT_SDK_ARCH ar71xx
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
+ENV OPENWRT_SDK_VERSION 17.01.4
+ENV OPENWRT_SDK_ARCH zynq
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/zynq/generic/lede-sdk-17.01.4-zynq_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y git-core subversion ccache build-essential gcc-multilib libssl-dev \
@@ -12,7 +12,7 @@ RUN apt-get update;\
     sudo -iu openwrt wget "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
-    sudo -iu openwrt mv "$(basename ${OPENWRT_SDK_URL%%.tar.*})" openwrt &&\
+    sudo -iu openwrt mv "$(basename ${OPENWRT_SDK_URL%%.tar.bz2})" openwrt &&\
     sudo -iu openwrt openwrt/scripts/feeds update
 
 CMD sudo -iu openwrt bash
