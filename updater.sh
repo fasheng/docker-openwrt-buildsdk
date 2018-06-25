@@ -39,16 +39,16 @@ do_gen_sdk_sources() {
       fi
     done
   done
-  echo "openwrt_sdk_sources=(" > openwrt_sdk_sources.sh
+  echo "openwrt_sdk_sources=(" > openwrt_sdk_sources_gen.sh
   for s in "${openwrt_sdk_sources[@]}"; do
-    echo "  \"${s}\"" >> openwrt_sdk_sources.sh
+    echo "  \"${s}\"" >> openwrt_sdk_sources_gen.sh
   done
-  echo ")" >> openwrt_sdk_sources.sh
-  echo "Done, see result in openwrt_sdk_sources.sh"
+  echo ")" >> openwrt_sdk_sources_gen.sh
+  echo "Done, see result in openwrt_sdk_sources_gen.sh"
 }
 
 do_list_sdk_sources() {
-  source ./openwrt_sdk_sources.sh
+  source ./openwrt_sdk_sources_gen.sh
   for s in "${openwrt_sdk_sources[@]}"; do
     local version="$(echo ${s} | awk -F:: '{print $1}')"
     local arch="$(echo ${s} | awk -F:: '{print $2}')"
@@ -58,7 +58,7 @@ do_list_sdk_sources() {
 }
 
 do_gen_dockerfiles() {
-  source ./openwrt_sdk_sources.sh
+  source ./openwrt_sdk_sources_gen.sh
   mkdir -p _dockerfiles
   for s in "${openwrt_sdk_sources[@]}"; do
     local version="$(echo ${s} | awk -F:: '{print $1}')"
@@ -74,14 +74,24 @@ do_gen_dockerfiles() {
   echo "Done, see result in folder dockerfiles"
 }
 
+is_tag_exists() {
+  if git show-ref --verify -q --tags -d refs/tags/"$1"; then
+    return 0
+  else
+    return 1
+  fi
+}
 do_gen_git_tags() {
   for f in _dockerfiles/Dockerfile-*; do
     local tag="${f##_dockerfiles/Dockerfile-}"
-    cp -vf ${f} Dockerfile
-    git add -f Dockerfile
-    git commit -m "Update Dockerfile for ${tag}"
-    git tag "${tag}"
-    rm -f Dockerfile
+    if is_tag_exists "${tag}"; then
+      echo "Ignore tag ${tag}, already exists"
+    else
+      cp -vf ${f} Dockerfile
+      git add -f Dockerfile
+      git commit -m "Update Dockerfile for ${tag}"
+      git tag "${tag}"
+    fi
   done
 }
 
