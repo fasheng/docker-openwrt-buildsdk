@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 17.01.4
-ENV OPENWRT_SDK_ARCH omap
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/omap/generic/lede-sdk-17.01.4-omap_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH oxnas
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/oxnas/generic/lede-sdk-17.01.4-oxnas_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
