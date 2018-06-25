@@ -1,58 +1,58 @@
 Full version and architecture OpenWrt build SDK Docker images
 
-**updater.sh usage**
+**updater.sh脚本简介**
 
-`updater.sh` used to generate Dockerfile files for different OpenWrt versions and architectures.
+由于OpenWrt不同的版本和架构分别对应指定的SDK, 为了方便部署, 目录下
+ `updater.sh` 用来批量生成对应的Dockerfile文件.
 
-- Get all supported OpenWrt main versions
+- 获取当前支持的OpenWrt主版本号
   ```
   $ ./updater.sh list_support_versions
   ```
 
-- Get all SDK urls through parsing the web page
+- 通过网页抓取各版本架构的SDK链接
   ```
   $ ./updater.sh gen_sdk_sources
   ```
 
-- List all the SDK urls
+- 列出抓取成功的OpenWrt版本架构信息
   ```
   $ ./updater.sh list_sdk_sources
   ```
 
-- Generate Dockerfile files
+- 生成各版本架构对应的Dockerfile
   ```
   $ ./updater.sh gen_dockerfiles
   ```
 
-- Generate current repo git tags
+- 更新对应的git tags
   ```
   $ ./updater.sh gen_git_tags
   ```
 
-- Upload git tags to trigger the build job in Docker Hub, note do not
-  use `git push --tags` manually
+- 上传git tags, 用于触发Docker Hub自动化构建, 注意避免直接使用 `git push
+  --tags` 命令
   ```
   $ ./updater.sh push_git_tags
   ```
 
-**Deploy**
+**部署**
 
 ```
 $ git checkout 15.05.1-ar71xx
 # docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
 ```
-or
+或者
 ```
 # docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
 ```
 
-**Usage**
+**运行**
 
-The outside volume directory's ownership should be to `1000:1000` or
-set the permission to `a+rwx`, or the openwrt user in Docker could not
-access them.
+注意外部传入的volume目录Owner权限要设置为`1000:1000`或者将访问权限
+设置为`a+rwx`, 否则Docker内的openwrt用户没有访问权限.
 
-For example to compile `ngrokc`:
+以编译ngrokc为例, 完整示例如下:
 ```
 $ mkdir out-dl-dir out-bin-dir
 $ echo 'src-git extra https://github.com/shangjiyu/openwrt-extra.git' > in-feed-conf
@@ -68,6 +68,6 @@ docker> ./scripts/feeds install ngrokc
 docker> make
 ```
 
-**References**
+**参考**
 - https://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
 - https://wiki.openwrt.org/doc/howto/build
