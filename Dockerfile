@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 15.05.1
-ENV OPENWRT_SDK_ARCH au1000-au1500
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05.1/au1000/au1500/OpenWrt-SDK-15.05.1-au1000-au1500_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
+ENV OPENWRT_SDK_ARCH au1000-au1550
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05.1/au1000/au1550/OpenWrt-SDK-15.05.1-au1000-au1550_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
