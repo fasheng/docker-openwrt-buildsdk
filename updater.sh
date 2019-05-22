@@ -2,6 +2,7 @@
 
 download_site="https://downloads.openwrt.org"
 declare -A openwrt_versions=(
+  ['18.06.2']=''
   ['17.01.4']='LEDE'
   ['15.05.1']='chaos_calmer'
   ['15.05']='chaos_calmer'
@@ -134,6 +135,7 @@ is_tag_exists() {
     return 1
   fi
 }
+
 do_gen_git_tags() {
   for f in dockerfiles/Dockerfile-*; do
     local tag="${f##dockerfiles/Dockerfile-}"
