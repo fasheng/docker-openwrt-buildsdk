@@ -1,4 +1,4 @@
-openwrt_sdk_sources=(
+sdk_sources=(
   "17.01.4::apm821xx-nand::https://downloads.openwrt.org/releases/17.01.4/targets/apm821xx/nand/lede-sdk-17.01.4-apm821xx-nand_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz"
   "17.01.4::apm821xx-sata::https://downloads.openwrt.org/releases/17.01.4/targets/apm821xx/sata/lede-sdk-17.01.4-apm821xx-sata_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz"
   "17.01.4::ar71xx::https://downloads.openwrt.org/releases/17.01.4/targets/ar71xx/generic/lede-sdk-17.01.4-ar71xx-generic_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz"

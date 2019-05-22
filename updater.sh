@@ -37,7 +37,7 @@ _dump_page() {
   curl -L "${1}" 2>/dev/null 2>/dev/null | sed 's/<hr>//'
 }
 do_gen_sdk_sources() {
-  declare -a openwrt_sdk_sources
+  declare -a sdk_sources
   for version in "${!openwrt_versions[@]}"; do
     local code="${openwrt_versions[${version}]}"
     local base_url
@@ -59,9 +59,9 @@ do_gen_sdk_sources() {
         sdk_file=$(_dump_page "${url}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl | grep 'openwrt-sdk\|OpenWrt-SDK\|lede-sdk' | head -1)
         if [ -n "${sdk_file}" ]; then
           if [ x"${s}" = x"generic" ]; then
-            openwrt_sdk_sources+=("${version}::${a}::${url}/${sdk_file}")
+            sdk_sources+=("${version}::${a}::${url}/${sdk_file}")
           else
-            openwrt_sdk_sources+=("${version}::${a}-${s}::${url}/${sdk_file}")
+            sdk_sources+=("${version}::${a}-${s}::${url}/${sdk_file}")
           fi
         else
           echo "ERROR: could not get sdk url from ${url}/"
@@ -69,17 +69,17 @@ do_gen_sdk_sources() {
       done
     done
   done
-  echo "openwrt_sdk_sources=(" > openwrt_sdk_sources_gen.sh
-  for s in "${openwrt_sdk_sources[@]}"; do
-    echo "  \"${s}\"" >> openwrt_sdk_sources_gen.sh
+  echo "sdk_sources=(" > sdk_sources.sh
+  for s in "${sdk_sources[@]}"; do
+    echo "  \"${s}\"" >> sdk_sources.sh
   done
-  echo ")" >> openwrt_sdk_sources_gen.sh
-  echo "Done, see result in openwrt_sdk_sources_gen.sh"
+  echo ")" >> sdk_sources.sh
+  echo "Done, see result in sdk_sources.sh"
 }
 
 do_list_sdk_sources() {
-  source ./openwrt_sdk_sources_gen.sh
-  for s in "${openwrt_sdk_sources[@]}"; do
+  source ./sdk_sources.sh
+  for s in "${sdk_sources[@]}"; do
     local version="$(echo ${s} | awk -F:: '{print $1}')"
     local arch="$(echo ${s} | awk -F:: '{print $2}')"
     local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
@@ -88,9 +88,9 @@ do_list_sdk_sources() {
 }
 
 do_gen_dockerfiles() {
-  source ./openwrt_sdk_sources_gen.sh
+  source ./sdk_sources.sh
   mkdir -p dockerfiles
-  for s in "${openwrt_sdk_sources[@]}"; do
+  for s in "${sdk_sources[@]}"; do
     local version="$(echo ${s} | awk -F:: '{print $1}')"
     local arch="$(echo ${s} | awk -F:: '{print $2}')"
     local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
