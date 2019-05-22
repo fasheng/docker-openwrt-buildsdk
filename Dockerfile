@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
-ENV OPENWRT_SDK_VERSION 15.05
-ENV OPENWRT_SDK_ARCH xburst-qi_lb60
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05/xburst/qi_lb60/OpenWrt-SDK-15.05-xburst-qi_lb60_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
+ENV OPENWRT_SDK_VERSION 17.01.4
+ENV OPENWRT_SDK_ARCH apm821xx-nand
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/apm821xx/nand/lede-sdk-17.01.4-apm821xx-nand_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
