@@ -36,10 +36,16 @@ do_list_support_versions() {
 _dump_page() {
   curl -L "${1}" 2>/dev/null 2>/dev/null | sed 's/<hr>//'
 }
+
+# arg*: [version..]
 do_gen_sdk_sources() {
-  declare -a sdk_sources
-  for version in "${!openwrt_versions[@]}"; do
+  local versions=("${!openwrt_versions[@]}")
+  if [ $# -ge 1 ]; then
+    versions=("$@")
+  fi
+  for version in "${versions[@]}"; do
     local code="${openwrt_versions[${version}]}"
+    local sdk_sources=()
     local base_url
     if [ "${version%%.*}" -ge 17 ]; then
       base_url="${download_site}/releases/${version}/targets"
@@ -68,38 +74,55 @@ do_gen_sdk_sources() {
         fi
       done
     done
+    local result_file="sdk_sources/${version}.sh"
+    echo "sdk_sources=(" > "${result_file}"
+    for s in "${sdk_sources[@]}"; do
+      echo "  \"${s}\"" >> "${result_file}"
+    done
+    echo ")" >> "${result_file}"
   done
-  echo "sdk_sources=(" > sdk_sources.sh
-  for s in "${sdk_sources[@]}"; do
-    echo "  \"${s}\"" >> sdk_sources.sh
-  done
-  echo ")" >> sdk_sources.sh
-  echo "Done, see result in sdk_sources.sh"
+  echo "Done, see result in sdk_sources"
 }
 
+# arg*: [version..]
 do_list_sdk_sources() {
-  source ./sdk_sources.sh
-  for s in "${sdk_sources[@]}"; do
-    local version="$(echo ${s} | awk -F:: '{print $1}')"
-    local arch="$(echo ${s} | awk -F:: '{print $2}')"
-    local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
-    echo "${version} ${arch} ${sdkurl}"
+  local versions=("${!openwrt_versions[@]}")
+  if [ $# -ge 1 ]; then
+    versions=("$@")
+  fi
+  for version in "${versions[@]}"; do
+    local sdk_sources=()
+    source "./sdk_sources/${version}.sh"
+    for s in "${sdk_sources[@]}"; do
+      local version="$(echo ${s} | awk -F:: '{print $1}')"
+      local arch="$(echo ${s} | awk -F:: '{print $2}')"
+      local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
+      echo "${version} ${arch} ${sdkurl}"
+    done
   done
 }
 
+# arg*: [version..]
 do_gen_dockerfiles() {
-  source ./sdk_sources.sh
   mkdir -p dockerfiles
-  for s in "${sdk_sources[@]}"; do
-    local version="$(echo ${s} | awk -F:: '{print $1}')"
-    local arch="$(echo ${s} | awk -F:: '{print $2}')"
-    local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
-    local outfile=dockerfiles/Dockerfile-"${version}-${arch}"
-    cp -vf Dockerfile.tpl "${outfile}"
-    sed -i -e "s|ENV OPENWRT_SDK_VERSION.*$|ENV OPENWRT_SDK_VERSION ${version}|" \
-      -e "s|ENV OPENWRT_SDK_ARCH.*$|ENV OPENWRT_SDK_ARCH ${arch}|" \
-      -e "s|ENV OPENWRT_SDK_URL.*$|ENV OPENWRT_SDK_URL ${sdkurl}|" \
-      "${outfile}"
+  local versions=("${!openwrt_versions[@]}")
+  if [ $# -ge 1 ]; then
+    versions=("$@")
+  fi
+  for version in "${versions[@]}"; do
+    local sdk_sources=()
+    source "./sdk_sources/${version}.sh"
+    for s in "${sdk_sources[@]}"; do
+      local version="$(echo ${s} | awk -F:: '{print $1}')"
+      local arch="$(echo ${s} | awk -F:: '{print $2}')"
+      local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
+      local outfile=dockerfiles/Dockerfile-"${version}-${arch}"
+      cp -vf Dockerfile.tpl "${outfile}"
+      sed -i -e "s|ENV OPENWRT_SDK_VERSION.*$|ENV OPENWRT_SDK_VERSION ${version}|" \
+        -e "s|ENV OPENWRT_SDK_ARCH.*$|ENV OPENWRT_SDK_ARCH ${arch}|" \
+        -e "s|ENV OPENWRT_SDK_URL.*$|ENV OPENWRT_SDK_URL ${sdkurl}|" \
+        "${outfile}"
+    done
   done
   echo "Done, see result in folder dockerfiles"
 }
@@ -146,4 +169,5 @@ do_push_git_tags() {
   done
 }
 
-do_${1}
+cmd="${1}"; shift
+do_"${cmd}" "$@"
