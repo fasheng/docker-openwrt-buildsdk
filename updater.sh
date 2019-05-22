@@ -87,12 +87,12 @@ do_list_sdk_sources() {
 
 do_gen_dockerfiles() {
   source ./openwrt_sdk_sources_gen.sh
-  mkdir -p _dockerfiles
+  mkdir -p dockerfiles
   for s in "${openwrt_sdk_sources[@]}"; do
     local version="$(echo ${s} | awk -F:: '{print $1}')"
     local arch="$(echo ${s} | awk -F:: '{print $2}')"
     local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
-    local outfile=_dockerfiles/Dockerfile-"${version}-${arch}"
+    local outfile=dockerfiles/Dockerfile-"${version}-${arch}"
     cp -vf Dockerfile.tpl "${outfile}"
     sed -i -e "s|ENV OPENWRT_SDK_VERSION.*$|ENV OPENWRT_SDK_VERSION ${version}|" \
       -e "s|ENV OPENWRT_SDK_ARCH.*$|ENV OPENWRT_SDK_ARCH ${arch}|" \
@@ -110,8 +110,8 @@ is_tag_exists() {
   fi
 }
 do_gen_git_tags() {
-  for f in _dockerfiles/Dockerfile-*; do
-    local tag="${f##_dockerfiles/Dockerfile-}"
+  for f in dockerfiles/Dockerfile-*; do
+    local tag="${f##dockerfiles/Dockerfile-}"
     if is_tag_exists "${tag}"; then
       echo "Ignore tag ${tag}, already exists"
     else
