@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 15.05
-ENV OPENWRT_SDK_ARCH brcm63xx-smp
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05/brcm63xx/smp/OpenWrt-SDK-15.05-brcm63xx-smp_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
+ENV OPENWRT_SDK_ARCH gemini-raidsonic
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05/gemini/raidsonic/OpenWrt-SDK-15.05-gemini-raidsonic_gcc-4.8-linaro_uClibc-0.9.33.2_eabi.Linux-x86_64.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
