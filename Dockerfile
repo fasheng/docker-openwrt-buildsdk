@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 14.07
-ENV OPENWRT_SDK_ARCH brcm63xx-smp
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/barrier_breaker/14.07/brcm63xx/smp/OpenWrt-SDK-brcm63xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
+ENV OPENWRT_SDK_ARCH ixp4xx-harddisk
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/barrier_breaker/14.07/ixp4xx/harddisk/OpenWrt-SDK-ixp4xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
