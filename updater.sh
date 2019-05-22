@@ -50,13 +50,21 @@ do_gen_sdk_sources() {
     fi
     local arch_array=$(_dump_page "${base_url}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl)
     for a in ${arch_array}; do
-      echo "${v}/${a}: ${base_url}/${a}/generic/"
-      sdk_file=$(_dump_page "${base_url}/${a}/generic/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl | grep 'openwrt-sdk\|OpenWrt-SDK\|lede-sdk' | head -1)
-      if [ -n "${sdk_file}" ]; then
-        openwrt_sdk_sources+=("${version}::${a}::${base_url}/${a}/generic/${sdk_file}")
-      else
-        echo "ERROR: could not get sdk url from ${base_url}/${a}/generic/"
-      fi
+      local subarch_array=$(_dump_page "${base_url}/${a}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl)
+      for s in ${subarch_array}; do
+        local url="${base_url}/${a}/${s}"
+        echo "${v}/${a}-${s}: ${url}"
+        sdk_file=$(_dump_page "${url}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl | grep 'openwrt-sdk\|OpenWrt-SDK\|lede-sdk' | head -1)
+        if [ -n "${sdk_file}" ]; then
+          if [ x"${s}" = x"generic" ]; then
+            openwrt_sdk_sources+=("${version}::${a}::${url}/${sdk_file}")
+          else
+            openwrt_sdk_sources+=("${version}::${a}-${s}::${url}/${sdk_file}")
+          fi
+        else
+          echo "ERROR: could not get sdk url from ${url}/"
+        fi
+      done
     done
   done
   echo "openwrt_sdk_sources=(" > openwrt_sdk_sources_gen.sh
