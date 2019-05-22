@@ -136,16 +136,18 @@ is_tag_exists() {
   fi
 }
 
+# arg1: [filter]
 do_gen_git_tags() {
-  for f in dockerfiles/Dockerfile-*; do
+  for f in dockerfiles/Dockerfile-"${1}"*; do
     local tag="${f##dockerfiles/Dockerfile-}"
     if is_tag_exists "${tag}"; then
       echo "Ignore tag ${tag}, already exists"
     else
-      cp -vf ${f} Dockerfile
+      cp -vf "${f}" Dockerfile
       git add -f Dockerfile
       git commit -m "Update Dockerfile for ${tag}"
       git tag "${tag}"
+      rm -f Dockerfile
     fi
   done
 }
