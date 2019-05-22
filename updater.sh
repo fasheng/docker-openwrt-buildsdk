@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 download_site="https://downloads.openwrt.org"
-openwrt_versions=(
-  "LEDE::17.01.4"
-  "chaos_calmer::15.05.1"
-  "chaos_calmer::15.05"
-  "barrier_breaker::14.07"
+declare -A openwrt_versions=(
+  ['17.01.4']='LEDE'
+  ['15.05.1']='chaos_calmer'
+  ['15.05']='chaos_calmer'
+  ['14.07']='barrier_breaker'
 )
 
 depends=(xmlstarlet)
@@ -26,10 +26,9 @@ function check_depends {
 check_depends
 
 do_list_support_versions() {
-  for v in ${openwrt_versions[@]}; do
-    local code="$(echo ${v} | awk -F:: '{print $1}')"
-    local version="$(echo ${v} | awk -F:: '{print $2}')"
-    echo "${code} ${version}"
+  for version in "${!openwrt_versions[@]}"; do
+    local code="${openwrt_versions[${version}]}"
+    echo "${version} ${code}"
   done
 }
 
@@ -39,9 +38,8 @@ _dump_page() {
 }
 do_gen_sdk_sources() {
   declare -a openwrt_sdk_sources
-  for v in ${openwrt_versions[@]}; do
-    local code="$(echo ${v} | awk -F:: '{print $1}')"
-    local version="$(echo ${v} | awk -F:: '{print $2}')"
+  for version in "${!openwrt_versions[@]}"; do
+    local code="${openwrt_versions[${version}]}"
     local base_url
     if [ "${version%%.*}" -ge 17 ]; then
       base_url="${download_site}/releases/${version}/targets"
@@ -53,7 +51,11 @@ do_gen_sdk_sources() {
       local subarch_array=$(_dump_page "${base_url}/${a}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl)
       for s in ${subarch_array}; do
         local url="${base_url}/${a}/${s}"
-        echo "${v}/${a}-${s}: ${url}"
+        if [ x"${s}" = x"generic" ]; then
+          echo "${version}-${a}: ${url}"
+        else
+          echo "${version}-${a}-${s}: ${url}"
+        fi
         sdk_file=$(_dump_page "${url}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl | grep 'openwrt-sdk\|OpenWrt-SDK\|lede-sdk' | head -1)
         if [ -n "${sdk_file}" ]; then
           if [ x"${s}" = x"generic" ]; then
