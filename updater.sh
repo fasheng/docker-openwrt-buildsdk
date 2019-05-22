@@ -2,7 +2,7 @@
 
 download_site="https://downloads.openwrt.org"
 declare -A openwrt_versions=(
-  ['18.06.2']=''
+  ['18.06.2']='OpenWrt'
   ['17.01.4']='LEDE'
   ['15.05.1']='chaos_calmer'
   ['15.05']='chaos_calmer'
@@ -160,15 +160,21 @@ do_push_git_branches() {
   done
 }
 
+# arg1: [filter]
 do_push_git_tags() {
   # use this instead of "git push --tags" to trigger docker hub
   # autobuild
-  for r in $(git remote); do
-    for t in $(git tag); do
-      echo "=> git push ${r} ${t}:${t}"
-      git push "${r}" "${t}:${t}" --force
-      sleep 5
-    done
+  local tags
+  if [ -n "${1}" ]; then
+    tags=$(git tag | grep "${1}")
+  else
+    tags=$(git tag)
+  fi
+  local r=github
+  for t in ${tags}; do
+    echo "=> git push ${r} ${t}:${t}"
+    git push "${r}" "${t}:${t}" --force
+    sleep 5
   done
 }
 
