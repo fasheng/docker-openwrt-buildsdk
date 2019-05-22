@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
-ENV OPENWRT_SDK_VERSION 17.01.4
-ENV OPENWRT_SDK_ARCH zynq
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/zynq/generic/lede-sdk-17.01.4-zynq_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_VERSION 14.07
+ENV OPENWRT_SDK_ARCH ar71xx-mikrotik
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/barrier_breaker/14.07/ar71xx/mikrotik/OpenWrt-SDK-ar71xx-for-linux-x86_64-gcc-4.8-linaro_uClibc-0.9.33.2.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
