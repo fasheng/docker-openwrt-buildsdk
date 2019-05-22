@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 17.01.4
-ENV OPENWRT_SDK_ARCH brcm2708-bcm2709
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/brcm2708/bcm2709/lede-sdk-17.01.4-brcm2708-bcm2709_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH brcm2708-bcm2710
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.4/targets/brcm2708/bcm2710/lede-sdk-17.01.4-brcm2708-bcm2710_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
