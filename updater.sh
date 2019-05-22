@@ -8,6 +8,23 @@ openwrt_versions=(
   "barrier_breaker::14.07"
 )
 
+depends=(xmlstarlet)
+function is_cmd_exists {
+  if type -a "${1}" &>/dev/null; then
+    return 0
+  else
+    return 1
+  fi
+}
+function check_depends {
+  for c in ${depends}; do
+    if ! is_cmd_exists "${c}"; then
+      abort "Missing command: ${c}"
+    fi
+  done
+}
+check_depends
+
 do_list_support_versions() {
   for v in ${openwrt_versions[@]}; do
     local code="$(echo ${v} | awk -F:: '{print $1}')"
@@ -16,22 +33,25 @@ do_list_support_versions() {
   done
 }
 
+# arg1: <url>
+_dump_page() {
+  curl -L "${1}" 2>/dev/null 2>/dev/null | sed 's/<hr>//'
+}
 do_gen_sdk_sources() {
   declare -a openwrt_sdk_sources
   for v in ${openwrt_versions[@]}; do
     local code="$(echo ${v} | awk -F:: '{print $1}')"
     local version="$(echo ${v} | awk -F:: '{print $2}')"
     local base_url
-    if [ "${code}" = "LEDE" ]; then
+    if [ "${version%%.*}" -ge 17 ]; then
       base_url="${download_site}/releases/${version}/targets"
     else
       base_url="${download_site}/${code}/${version}"
     fi
-    local archs="$(w3m -dump "${base_url}/" | sed 1,+3d | grep '\s-\s' | awk '{print $1}' | sed 's#/$##')"
-    for a in ${archs}; do
-      # echo "arch: ${a} ${base_url}/${a}/generic/"
-      local sdk_file=""
-      sdk_file="$(w3m -dump ${base_url}/${a}/generic/ | grep 'lede-sdk|OpenWrt-SDK' | awk '{print $1}' | head -1)"
+    local arch_array=$(_dump_page "${base_url}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl)
+    for a in ${arch_array}; do
+      echo "${v}/${a}: ${base_url}/${a}/generic/"
+      sdk_file=$(_dump_page "${base_url}/${a}/generic/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl | grep 'openwrt-sdk\|OpenWrt-SDK\|lede-sdk' | head -1)
       if [ -n "${sdk_file}" ]; then
         openwrt_sdk_sources+=("${version}::${a}::${base_url}/${a}/generic/${sdk_file}")
       else
