@@ -2,6 +2,7 @@
 
 download_site="https://downloads.openwrt.org"
 declare -A openwrt_versions=(
+  ['19.07.2']='OpenWrt'
   ['18.06.2']='OpenWrt'
   ['17.01.4']='LEDE'
   ['15.05.1']='chaos_calmer'
