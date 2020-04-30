@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.2
-ENV OPENWRT_SDK_ARCH samsung-s5pv210
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.2/targets/samsung/s5pv210/openwrt-sdk-19.07.2-samsung-s5pv210_gcc-7.5.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH sunxi-cortexa53
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.2/targets/sunxi/cortexa53/openwrt-sdk-19.07.2-sunxi-cortexa53_gcc-7.5.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
