@@ -33,7 +33,16 @@ Full version and architecture OpenWrt build SDK Docker images
 - 上传git tags, 用于触发Docker Hub自动化构建, 注意避免直接使用 `git push
   --tags` 命令
   ```
-  $ ./updater.sh push_git_tags
+  $ ./updater.sh push_git_tags 21.02.3-ramips-mt7621
+  $ ./updater.sh push_git_tags 21.02.3-ath79
+  $ ./updater.sh push_git_tags 21.02.3-ramips-mt76x8
+  $ ./updater.sh push_git_tags 21.02.3-mediatek-mt7622
+  $ ./updater.sh push_git_tags 21.02.3-mvebu-cortexa9
+  $ ./updater.sh push_git_tags 21.02.3-ramips-mt7620
+  $ ./updater.sh push_git_tags 21.02.3-ipq40xx
+  $ ./updater.sh push_git_tags 21.02.3-bcm63xx
+  $ ./updater.sh push_git_tags 21.02.3-ipq806x
+  $ ./updater.sh push_git_tags 21.02.3-x86-64
   ```
 
 **部署**
