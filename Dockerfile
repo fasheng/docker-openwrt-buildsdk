@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 21.02.3
-ENV OPENWRT_SDK_ARCH ramips-mt7621
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.3/targets/ramips/mt7621/openwrt-sdk-21.02.3-ramips-mt7621_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH ramips-mt76x8
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.3/targets/ramips/mt76x8/openwrt-sdk-21.02.3-ramips-mt76x8_gcc-8.4.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
