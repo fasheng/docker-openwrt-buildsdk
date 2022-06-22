@@ -120,7 +120,7 @@ do_gen_dockerfiles() {
       local arch="$(echo ${s} | awk -F:: '{print $2}')"
       local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
       local outfile=dockerfiles/Dockerfile-"${version}-${arch}"
-      cp -vf Dockerfile.tpl "${outfile}"
+      cp -vf templates/Dockerfile-"${version}".tpl "${outfile}"
       sed -i -e "s|ENV OPENWRT_SDK_VERSION.*$|ENV OPENWRT_SDK_VERSION ${version}|" \
         -e "s|ENV OPENWRT_SDK_ARCH.*$|ENV OPENWRT_SDK_ARCH ${arch}|" \
         -e "s|ENV OPENWRT_SDK_URL.*$|ENV OPENWRT_SDK_URL ${sdkurl}|" \
