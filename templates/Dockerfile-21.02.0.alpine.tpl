@@ -8,7 +8,7 @@ RUN apk update;\
             findutils flex g++ gawk gcc gettext git grep intltool libxslt \
             linux-headers make ncurses-dev openssl-dev patch perl python3-dev \
             rsync tar unzip util-linux wget zlib-dev \
-            sudo libuser xz &&\
+            sudo shadow xz &&\
     useradd -m openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt &&\
     sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
