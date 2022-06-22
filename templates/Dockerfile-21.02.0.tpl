@@ -1,1 +1,1 @@
-Dockerfile-17.01.0.tpl
+Dockerfile-21.02.0.ubuntu.tpl
