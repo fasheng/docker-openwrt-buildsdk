@@ -1,1 +1,0 @@
-Dockerfile-17.01.0.tpl

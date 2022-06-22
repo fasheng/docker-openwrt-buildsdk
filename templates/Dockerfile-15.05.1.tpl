@@ -1,1 +1,0 @@
-Dockerfile-15.05.tpl

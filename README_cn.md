@@ -5,24 +5,32 @@ Full version and architecture OpenWrt build SDK Docker images
 由于OpenWrt不同的版本和架构分别对应指定的SDK, 为了方便部署, 目录下
  `updater.sh` 用来批量生成对应的Dockerfile文件.
 
-- 获取当前支持的OpenWrt主版本号
-  ```
-  $ ./updater.sh list_support_versions
-  ```
-
 - 通过网页抓取各版本架构的SDK链接
   ```
-  $ ./updater.sh gen_sdk_sources
+  $ ./updater.sh gen_sdk_sources 21.02.3
+  $ ./updater.sh gen_sdk_sources 19.07.2
+  $ ./updater.sh gen_sdk_sources 18.06.2
+  $ ./updater.sh gen_sdk_sources 17.01.4
+  $ ./updater.sh gen_sdk_sources 15.05.1 chaos_calmer
+  $ ./updater.sh gen_sdk_sources 15.05   chaos_calmer
+  $ ./updater.sh gen_sdk_sources 14.07   barrier_breaker
   ```
 
 - 列出抓取成功的OpenWrt版本架构信息
   ```
+  $ ./updater.sh list_sdk_sources 21.02.3 19.07.2
   $ ./updater.sh list_sdk_sources
   ```
 
 - 生成各版本架构对应的Dockerfile
   ```
-  $ ./updater.sh gen_dockerfiles
+  $ ./updater.sh gen_dockerfiles 21.02.3 Dockerfile-21.02.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 19.07.2 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 18.06.2 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 17.01.4 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 15.05.1 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 15.05   Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 14.07   Dockerfile-17.01.0.ubuntu.tpl
   ```
 
 - 更新对应的git tags

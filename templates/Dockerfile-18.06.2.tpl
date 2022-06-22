@@ -1,1 +1,0 @@
-Dockerfile-18.06.0.tpl

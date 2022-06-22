@@ -4,24 +4,32 @@ Full version and architecture OpenWrt build SDK Docker images
 
 `updater.sh` used to generate Dockerfile files for different OpenWrt versions and architectures.
 
-- Get all supported OpenWrt main versions
+- Fetch all SDK urls through parsing the web page
   ```
-  $ ./updater.sh list_support_versions
-  ```
-
-- Get all SDK urls through parsing the web page
-  ```
-  $ ./updater.sh gen_sdk_sources
+  $ ./updater.sh gen_sdk_sources 21.02.3
+  $ ./updater.sh gen_sdk_sources 19.07.2
+  $ ./updater.sh gen_sdk_sources 18.06.2
+  $ ./updater.sh gen_sdk_sources 17.01.4
+  $ ./updater.sh gen_sdk_sources 15.05.1 chaos_calmer
+  $ ./updater.sh gen_sdk_sources 15.05   chaos_calmer
+  $ ./updater.sh gen_sdk_sources 14.07   barrier_breaker
   ```
 
 - List all the SDK urls
   ```
+  $ ./updater.sh list_sdk_sources 21.02.3 19.07.2
   $ ./updater.sh list_sdk_sources
   ```
 
 - Generate Dockerfile files
   ```
-  $ ./updater.sh gen_dockerfiles
+  $ ./updater.sh gen_dockerfiles 21.02.3 Dockerfile-21.02.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 19.07.2 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 18.06.2 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 17.01.4 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 15.05.1 Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 15.05   Dockerfile-17.01.0.ubuntu.tpl
+  $ ./updater.sh gen_dockerfiles 14.07   Dockerfile-17.01.0.ubuntu.tpl
   ```
 
 - Generate current repo git tags

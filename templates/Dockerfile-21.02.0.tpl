@@ -1,1 +1,0 @@
-Dockerfile-21.02.0.ubuntu.tpl
