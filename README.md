@@ -47,10 +47,14 @@ Full version and architecture OpenWrt build SDK Docker images
 **Deploy**
 
 ```
+# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
+```
+or
+```
 $ git checkout 15.05.1-ar71xx
 # docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
 ```
-or
+or pull from docker hub(not works since 21.02.0)
 ```
 # docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
 ```
