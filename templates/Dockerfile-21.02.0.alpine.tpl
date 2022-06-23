@@ -1,20 +1,20 @@
 FROM alpine:3.16.0
 
-ENV OPENWRT_SDK_VERSION 21.02.3
+ENV OPENWRT_SDK_VERSION 21.02.0
 ENV OPENWRT_SDK_ARCH ath79
 ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.3/targets/ath79/generic/openwrt-sdk-21.02.3-ath79-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
-RUN apk update;\
-    apk add asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
+RUN apk update
+RUN apk add asciidoc bash bc binutils bzip2 cdrkit coreutils diffutils \
             findutils flex g++ gawk gcc gettext git grep intltool libxslt \
             linux-headers make ncurses-dev openssl-dev patch perl python3-dev \
             rsync tar unzip util-linux wget zlib-dev \
-            sudo shadow xz &&\
-    useradd -m openwrt &&\
-    echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt &&\
-    sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
+            sudo shadow xz
+RUN useradd -m openwrt &&\
+    echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
+RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
-    sudo -iu openwrt mv "$(basename ${OPENWRT_SDK_URL%%.tar.*})" openwrtsdk &&\
-    sudo -iu openwrt openwrtsdk/scripts/feeds update
+    sudo -iu openwrt mv "$(basename ${OPENWRT_SDK_URL%%.tar.*})" openwrtsdk
+RUN sudo -iu openwrt openwrtsdk/scripts/feeds update
 
 CMD sudo -iu openwrt bash
