@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.1
-ENV OPENWRT_SDK_ARCH apm821xx-nand
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.1/targets/apm821xx/nand/openwrt-sdk-18.06.1-apm821xx-nand_gcc-7.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH apm821xx-sata
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.1/targets/apm821xx/sata/openwrt-sdk-18.06.1-apm821xx-sata_gcc-7.3.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
