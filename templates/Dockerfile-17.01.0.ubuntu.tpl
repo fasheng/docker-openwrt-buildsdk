@@ -1,14 +1,15 @@
 FROM ubuntu:18.04
 
-ENV OPENWRT_SDK_VERSION 17.01.0
-ENV OPENWRT_SDK_ARCH ar71xx
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update
 RUN apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
                        libncurses5-dev zlib1g-dev gawk flex gettext wget unzip python
 RUN useradd -m openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
+
+ENV OPENWRT_SDK_VERSION 17.01.0
+ENV OPENWRT_SDK_ARCH ar71xx
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/chaos_calmer/15.05.1/ar71xx/generic/OpenWrt-SDK-15.05.1-ar71xx-generic_gcc-4.8-linaro_uClibc-0.9.33.2.Linux-x86_64.tar.bz2
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
