@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.8
-ENV OPENWRT_SDK_ARCH gemini
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.8/targets/gemini/generic/openwrt-sdk-18.06.8-gemini_gcc-7.3.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH imx6
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.8/targets/imx6/generic/openwrt-sdk-18.06.8-imx6_gcc-7.3.0_musl_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
