@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.5
-ENV OPENWRT_SDK_ARCH sunxi-cortexa53
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.5/targets/sunxi/cortexa53/openwrt-sdk-19.07.5-sunxi-cortexa53_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH sunxi-cortexa7
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.5/targets/sunxi/cortexa7/openwrt-sdk-19.07.5-sunxi-cortexa7_gcc-7.5.0_musl_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
