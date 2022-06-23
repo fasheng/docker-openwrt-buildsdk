@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.4
-ENV OPENWRT_SDK_ARCH at91-sam9x
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.4/targets/at91/sam9x/openwrt-sdk-19.07.4-at91-sam9x_gcc-7.5.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH at91-sama5
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.4/targets/at91/sama5/openwrt-sdk-19.07.4-at91-sama5_gcc-7.5.0_musl_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
