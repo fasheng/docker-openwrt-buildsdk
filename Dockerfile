@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.6
-ENV OPENWRT_SDK_ARCH rb532
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.6/targets/rb532/generic/openwrt-sdk-18.06.6-rb532_gcc-7.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH sunxi-cortexa53
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.6/targets/sunxi/cortexa53/openwrt-sdk-18.06.6-sunxi-cortexa53_gcc-7.3.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
