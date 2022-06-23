@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.5
-ENV OPENWRT_SDK_ARCH lantiq-xway_legacy
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.5/targets/lantiq/xway_legacy/openwrt-sdk-18.06.5-lantiq-xway_legacy_gcc-7.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH layerscape-armv8_32b
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.5/targets/layerscape/armv8_32b/openwrt-sdk-18.06.5-layerscape-armv8_32b_gcc-7.3.0_musl_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
