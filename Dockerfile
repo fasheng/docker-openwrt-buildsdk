@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.8
-ENV OPENWRT_SDK_ARCH ramips-mt76x8
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.8/targets/ramips/mt76x8/openwrt-sdk-18.06.8-ramips-mt76x8_gcc-7.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH ramips-rt288x
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.8/targets/ramips/rt288x/openwrt-sdk-18.06.8-ramips-rt288x_gcc-7.3.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
