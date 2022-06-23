@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.6
-ENV OPENWRT_SDK_ARCH archs38
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.6/targets/archs38/generic/openwrt-sdk-19.07.6-archs38-generic_gcc-8.3.0_uClibc.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH armvirt-32
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.6/targets/armvirt/32/openwrt-sdk-19.07.6-armvirt-32_gcc-7.5.0_musl_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
