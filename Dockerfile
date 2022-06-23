@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 17.01.3
-ENV OPENWRT_SDK_ARCH sunxi
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.3/targets/sunxi/generic/lede-sdk-17.01.3-sunxi_gcc-5.4.0_musl-1.1.16_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH x86
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.3/targets/x86/generic/lede-sdk-17.01.3-x86-generic_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
