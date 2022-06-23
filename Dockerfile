@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.0
-ENV OPENWRT_SDK_ARCH lantiq-ase
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.0/targets/lantiq/ase/openwrt-sdk-19.07.0-lantiq-ase_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH lantiq-falcon
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.0/targets/lantiq/falcon/openwrt-sdk-19.07.0-lantiq-falcon_gcc-7.5.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
