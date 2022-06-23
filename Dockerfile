@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.3
-ENV OPENWRT_SDK_ARCH ar7-ac49x
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.3/targets/ar7/ac49x/openwrt-sdk-18.06.3-ar7-ac49x_gcc-7.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH arc770
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.3/targets/arc770/generic/openwrt-sdk-18.06.3-arc770-generic_gcc-arc-2017.09-release_uClibc.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
