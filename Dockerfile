@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.0
-ENV OPENWRT_SDK_ARCH mpc85xx-p1020
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.0/targets/mpc85xx/p1020/openwrt-sdk-19.07.0-mpc85xx-p1020_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH mpc85xx-p2020
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.0/targets/mpc85xx/p2020/openwrt-sdk-19.07.0-mpc85xx-p2020_gcc-7.5.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
