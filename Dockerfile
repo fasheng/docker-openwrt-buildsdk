@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 18.06.9
-ENV OPENWRT_SDK_ARCH brcm2708-bcm2708
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.9/targets/brcm2708/bcm2708/openwrt-sdk-18.06.9-brcm2708-bcm2708_gcc-7.3.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH brcm2708-bcm2709
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/18.06.9/targets/brcm2708/bcm2709/openwrt-sdk-18.06.9-brcm2708-bcm2709_gcc-7.3.0_musl_eabi.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
