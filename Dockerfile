@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.4
-ENV OPENWRT_SDK_ARCH brcm47xx-legacy
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.4/targets/brcm47xx/legacy/openwrt-sdk-19.07.4-brcm47xx-legacy_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH brcm47xx-mips74k
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.4/targets/brcm47xx/mips74k/openwrt-sdk-19.07.4-brcm47xx-mips74k_gcc-7.5.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
