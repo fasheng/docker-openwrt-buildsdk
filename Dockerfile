@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 17.01.3
-ENV OPENWRT_SDK_ARCH lantiq-xrx200
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.3/targets/lantiq/xrx200/lede-sdk-17.01.3-lantiq-xrx200_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH lantiq-xway
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.3/targets/lantiq/xway/lede-sdk-17.01.3-lantiq-xway_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
