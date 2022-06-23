@@ -76,17 +76,16 @@ $ git checkout 15.05.1-ar71xx
 以编译ngrokc为例, 完整示例如下:
 ```
 $ mkdir out-dl-dir out-bin-dir
-$ echo 'src-git extra https://github.com/shangjiyu/openwrt-extra.git' > in-feed-conf
-$ chmod a+rwx -R in-feed-conf out-dl-dir out-bin-dir
 # docker run -ti \
-    -v in-feed-conf:/home/openwrt/openwrtsdk/feeds.conf.default \
-    -v out-dl-dir:/home/openwrt/openwrtsdk/dl \
-    -v out-bin-dir:/home/openwrt/openwrtsdk/bin \
-    fasheng/openwrt-buildsdk:15.05.1-ar71xx
+    -v $(pwd)/out-dl-dir:/home/openwrt/openwrtsdk/dl \
+    -v $(pwd)/out-bin-dir:/home/openwrt/openwrtsdk/bin \
+    fasheng/openwrt-buildsdk:21.02.3-ath79
 docker> cd openwrtsdk
-docker> ./scripts/feeds update extra
-docker> ./scripts/feeds install ngrokc
-docker> make
+docker> sudo chmod a+rwx dl bin
+docker> echo 'src-git custom https://github.com/kiddin9/openwrt-packages' >> feeds.conf.default
+docker> ./scripts/feeds update custom
+docker> ./scripts/feeds install ngrokc zlib kmod-cryptodev
+docker> make -j1 V=s         # 记得在menuconfig界面禁用 global building settings/Cryptographically sign package lists 这一选项
 ```
 
 **参考**
