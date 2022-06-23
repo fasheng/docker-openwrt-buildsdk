@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
 ENV OPENWRT_SDK_VERSION 19.07.5
-ENV OPENWRT_SDK_ARCH malta-be
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.5/targets/malta/be/openwrt-sdk-19.07.5-malta-be_gcc-7.5.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH mediatek-mt7622
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/19.07.5/targets/mediatek/mt7622/openwrt-sdk-19.07.5-mediatek-mt7622_gcc-7.5.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y sudo git-core subversion ccache build-essential gcc-multilib libssl-dev \
