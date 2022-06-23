@@ -1,8 +1,8 @@
 FROM ubuntu:22.04
 
 ENV OPENWRT_SDK_VERSION 21.02.2
-ENV OPENWRT_SDK_ARCH bcm27xx-bcm2711
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.2/targets/bcm27xx/bcm2711/openwrt-sdk-21.02.2-bcm27xx-bcm2711_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH bcm47xx
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.2/targets/bcm47xx/generic/openwrt-sdk-21.02.2-bcm47xx-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update;\
     apt-get install -y build-essential gawk gcc-multilib flex git gettext libncurses5-dev libssl-dev python3-distutils zlib1g-dev \
