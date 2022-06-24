@@ -7,9 +7,9 @@ RUN apt-get install -y build-essential gawk gcc-multilib flex git gettext libncu
 RUN useradd -m openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
-ENV OPENWRT_SDK_VERSION 21.02.0
-ENV OPENWRT_SDK_ARCH ath79
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.3/targets/ath79/generic/openwrt-sdk-21.02.3-ath79-generic_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_VERSION xxx
+ENV OPENWRT_SDK_ARCH xxx
+ENV OPENWRT_SDK_URL xxx
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
