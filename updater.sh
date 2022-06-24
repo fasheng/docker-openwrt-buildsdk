@@ -30,7 +30,7 @@ _dump_page() {
 }
 
 # arg1: <version> arg2: [codename]
-do_gen_sdk_sources() {
+cmd_gen_sdk_sources() {
   if [ $# -lt 1 ]; then
     abort "Need at least one argument"
   fi
@@ -75,7 +75,7 @@ do_gen_sdk_sources() {
 }
 
 # arg*: [version..]
-do_list_sdk_sources() {
+cmd_list_sdk_sources() {
   local versions=($(cd sdk_sources/; ls -1 | sed 's/.sh$//'))
   if [ $# -ge 1 ]; then
     versions=("$@")
@@ -93,7 +93,7 @@ do_list_sdk_sources() {
 }
 
 # arg1: version arg2: template
-do_gen_dockerfiles() {
+cmd_gen_dockerfiles() {
   mkdir -p dockerfiles
   if [ $# -lt 2 ]; then
     abort "Need at least two arguments"
@@ -125,7 +125,7 @@ is_tag_exists() {
 }
 
 # arg1: [filter]
-do_gen_git_tags() {
+cmd_gen_git_tags() {
   for f in dockerfiles/Dockerfile-"${1}"*; do
     local tag="${f##dockerfiles/Dockerfile-}"
     if is_tag_exists "${tag}"; then
@@ -139,7 +139,7 @@ do_gen_git_tags() {
   done
 }
 
-do_push_git_branches() {
+cmd_push_git_branches() {
   for r in $(git remote); do
     for b in $(git show-ref --heads | awk '{print $2}' | sed 's|refs/heads/||'); do
       echo "=> git push ${r} ${b}:${b}"
@@ -149,7 +149,7 @@ do_push_git_branches() {
 }
 
 # arg1: [filter]
-do_push_git_tags() {
+cmd_push_git_tags() {
   # use this instead of "git push --tags" to trigger docker hub
   # autobuild
   local tags
@@ -167,4 +167,4 @@ do_push_git_tags() {
 }
 
 cmd="${1}"; shift
-do_"${cmd}" "$@"
+cmd_"${cmd}" "$@"
