@@ -75,17 +75,19 @@ access them.
 
 For example to compile `ngrokc`:
 ```
-$ mkdir out-dl-dir out-bin-dir
-# docker run -ti \
-    -v $(pwd)/out-dl-dir:/home/openwrt/openwrtsdk/dl \
-    -v $(pwd)/out-bin-dir:/home/openwrt/openwrtsdk/bin \
+$ mkdir -p dl bin feeds
+# chown 1000:1000 dl bin feeds
+# docker run -ti --rm \
+    -v $(pwd)/dl:/home/openwrt/openwrtsdk/dl \
+    -v $(pwd)/bin:/home/openwrt/openwrtsdk/bin \
+    -v $(pwd)/feeds:/home/openwrt/openwrtsdk/feeds \
     fasheng/openwrt-buildsdk:21.02.3-ath79
 docker> cd openwrtsdk
-docker> sudo chmod a+rwx dl bin
 docker> echo 'src-git custom https://github.com/kiddin9/openwrt-packages' >> feeds.conf.default
-docker> ./scripts/feeds update custom
+docker> ./scripts/feeds update
 docker> ./scripts/feeds install ngrokc zlib kmod-cryptodev
-docker> make -j1 V=s         # remember disable global building settings/Cryptographically sign package lists in menuconfig
+docker> make  # remember disable global building settings/Cryptographically sign package lists in menuconfig
+$ ls bin/packages
 ```
 
 **References**
