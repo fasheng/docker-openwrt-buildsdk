@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 17.01.6
-ENV OPENWRT_SDK_ARCH ramips-mt7620
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.6/targets/ramips/mt7620/lede-sdk-17.01.6-ramips-mt7620_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH ar71xx
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/17.01.6/targets/ar71xx/generic/lede-sdk-17.01.6-ar71xx-generic_gcc-5.4.0_musl-1.1.16.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
