@@ -3,6 +3,18 @@
 download_site="https://downloads.openwrt.org"
 
 depends=(xmlstarlet)
+msg() {
+  local mesg="$1"; shift
+  printf "==> ${mesg}\n" "$@" >&2
+}
+warning() {
+  local mesg="$1"; shift
+  printf "==> WARNING: ${mesg}\n" "$@" >&2
+}
+error() {
+  local mesg="$1"; shift
+  printf "==> ERROR: ${mesg}\n" "$@" >&2
+}
 abort() {
     echo "$@"
     echo "Aborting..."
@@ -49,9 +61,9 @@ cmd_gen_sdk_sources() {
     for s in ${subarch_array}; do
       local url="${base_url}/${a}/${s}"
       if [ x"${s}" = x"generic" ]; then
-        echo "${version}-${a}: ${url}"
+        msg "${version}-${a}: ${url}"
       else
-        echo "${version}-${a}-${s}: ${url}"
+        msg "${version}-${a}-${s}: ${url}"
       fi
       sdk_file=$(_dump_page "${url}/" | xmlstarlet select -t -m '//td[@class="n"]/a' -v . --nl | grep 'openwrt-sdk\|OpenWrt-SDK\|lede-sdk' | head -1)
       if [ -n "${sdk_file}" ]; then
@@ -61,7 +73,7 @@ cmd_gen_sdk_sources() {
           sdk_sources+=("${version}::${a}-${s}::${url}/${sdk_file}")
         fi
       else
-        echo "ERROR: could not get sdk url from ${url}/"
+        error "ERROR: could not get sdk url from ${url}/"
       fi
     done
   done
@@ -71,7 +83,7 @@ cmd_gen_sdk_sources() {
     echo "  \"${s}\"" >> "${result_file}"
   done
   echo ")" >> "${result_file}"
-  echo "Done, see result in sdk_sources"
+  msg "Done, see result in sdk_sources"
 }
 
 # arg*: [version..]
@@ -87,7 +99,7 @@ cmd_list_sdk_sources() {
       local version="$(echo ${s} | awk -F:: '{print $1}')"
       local arch="$(echo ${s} | awk -F:: '{print $2}')"
       local sdkurl="$(echo ${s} | awk -F:: '{print $3}')"
-      echo "${version} ${arch} ${sdkurl}"
+      msg "${version} ${arch} ${sdkurl}"
     done
   done
 }
@@ -113,7 +125,7 @@ cmd_gen_dockerfiles() {
       -e "s|ENV OPENWRT_SDK_URL.*$|ENV OPENWRT_SDK_URL ${sdkurl}|" \
       "${outfile}"
   done
-  echo "Done, see result in folder dockerfiles"
+  msg "Done, see result in folder dockerfiles"
 }
 
 is_tag_exists() {
@@ -129,7 +141,7 @@ cmd_gen_git_tags() {
   for f in dockerfiles/Dockerfile-"${1}"*; do
     local tag="${f##dockerfiles/Dockerfile-}"
     if is_tag_exists "${tag}"; then
-      echo "Ignore tag ${tag}, already exists"
+      msg "Ignore tag ${tag}, already exists"
     else
       cp -vf "${f}" Dockerfile
       git add -f Dockerfile
@@ -142,7 +154,7 @@ cmd_gen_git_tags() {
 cmd_push_git_branches() {
   for r in $(git remote); do
     for b in $(git show-ref --heads | awk '{print $2}' | sed 's|refs/heads/||'); do
-      echo "=> git push ${r} ${b}:${b}"
+      msg "git push ${r} ${b}:${b}"
       git push "${r}" "${b}:${b}"
     done
   done
@@ -160,7 +172,7 @@ cmd_push_git_tags() {
   fi
   local r=github
   for t in ${tags}; do
-    echo "=> git push ${r} ${t}:${t}"
+    msg "git push ${r} ${t}:${t}"
     git push "${r}" "${t}:${t}" --force
     sleep 5
   done
