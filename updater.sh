@@ -136,10 +136,14 @@ is_tag_exists() {
   fi
 }
 
-# arg1: [filter]
-cmd_gen_git_tags() {
-  for f in dockerfiles/Dockerfile-"${1}"*; do
-    local tag="${f##dockerfiles/Dockerfile-}"
+# arg1: tag
+cmd_gen_git_tag() {
+  if [ $# -lt 1 ]; then
+    abort "Need at least one argument"
+  fi
+  local tag="${1}"
+  local dockerfile=dockerfiles/Dockerfile-"${1}"
+  if [ -f "${dockerfile}" ]; then
     if is_tag_exists "${tag}"; then
       msg "Ignore tag ${tag}, already exists"
     else
@@ -147,7 +151,18 @@ cmd_gen_git_tags() {
       git add -f Dockerfile
       git commit -m "Update Dockerfile for ${tag}"
       git tag "${tag}"
+      msg "New tag ${tag}"
     fi
+  else
+    warning "Ignore tag ${tag}, ${dockerfile} not exists"
+  fi
+}
+
+# arg1: [filter]
+cmd_gen_git_tags() {
+  for f in dockerfiles/Dockerfile-"${1}"*; do
+    local tag="${f##dockerfiles/Dockerfile-}"
+    cmd_gen_git_tag "${tag}"
   done
 }
 
