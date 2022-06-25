@@ -7,17 +7,25 @@ gen_popular_tags() {
   local version=${1}
   local models=(
     ramips-mt7621
-    ath79
     ramips-mt76x8
-    mediatek-mt7622
+    ath79 # ath79-nand
     mvebu-cortexa9
     ramips-mt7620
-    ipq40xx
-    bcm63xx
+    ar71xx # ar71xx-tiny ar71xx-mikrotik
+    ipq40xx # ipq40xx-mikrotik
+    bcm63xx # bcm63xx-smp
     ipq806x
+    brcm63xx
+    lantiq-xrx200 # lantiq-xway
+    ramips-rt305x
+    ramips-rt3883
+    bcm53xx
+    mediatek-mt7622
     x86-64
     x86
-    ar71xx
+    bcm4908
+    bcm47xx-mips74k
+    kirkwood
   )
   for m in ${models[@]}; do
     ./updater.sh gen_git_tag ${version}-${m}
