@@ -85,19 +85,19 @@ $ ./updater.sh gen_dockerfiles 22.03.0-rc4 Dockerfile-21.02.0.ubuntu.tpl
   $ ./updater.sh gen_git_tags
   ```
 
-- 上传git tags, 用于触发Docker Hub自动化构建, 注意避免直接使用 `git push
+- 上传git tags, 用于触发Github Action自动化构建, 注意避免直接使用 `git push
   --tags` 命令
   ```
-  $ ./updater.sh push_git_tags 21.02.3-ramips-mt7621
-  $ ./updater.sh push_git_tags 21.02.3-ath79
-  $ ./updater.sh push_git_tags 21.02.3-ramips-mt76x8
-  $ ./updater.sh push_git_tags 21.02.3-mediatek-mt7622
-  $ ./updater.sh push_git_tags 21.02.3-mvebu-cortexa9
-  $ ./updater.sh push_git_tags 21.02.3-ramips-mt7620
-  $ ./updater.sh push_git_tags 21.02.3-ipq40xx
-  $ ./updater.sh push_git_tags 21.02.3-bcm63xx
-  $ ./updater.sh push_git_tags 21.02.3-ipq806x
-  $ ./updater.sh push_git_tags 21.02.3-x86-64
+  $ ./updater.sh trigger_github_action github 21.02.3-ramips-mt7621
+  $ ./updater.sh trigger_github_action github 21.02.3-ath79
+  $ ./updater.sh trigger_github_action github 21.02.3-ramips-mt76x8
+  $ ./updater.sh trigger_github_action github 21.02.3-mediatek-mt7622
+  $ ./updater.sh trigger_github_action github 21.02.3-mvebu-cortexa9
+  $ ./updater.sh trigger_github_action github 21.02.3-ramips-mt7620
+  $ ./updater.sh trigger_github_action github 21.02.3-ipq40xx
+  $ ./updater.sh trigger_github_action github 21.02.3-bcm63xx
+  $ ./updater.sh trigger_github_action github 21.02.3-ipq806x
+  $ ./updater.sh trigger_github_action github 21.02.3-x86-64
   ```
 
 **参考**
