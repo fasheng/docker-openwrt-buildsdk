@@ -4,22 +4,24 @@ Full version and architecture OpenWrt build SDK Docker images
 
 通过Dockerfile构建
 ```
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
+# docker build --tag fasheng/openwrt-buildsdk:21.02.3-ath79 --file dockerfiles/Dockerfile-21.02.3-ath79 .
 ```
 或者通过切换tag构建
 ```
-$ git checkout 15.05.1-ar71xx
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
+$ git checkout 21.02.3-ath79
+# docker build --tag fasheng/openwrt-buildsdk:21.02.3-ath79 .
 ```
-或者从docker hub拉取镜像(21.02.0之后不可用)
+或者从docker hub拉取镜像
 ```
-# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
+# docker pull fasheng/openwrt-buildsdk:21.02.3-ath79
+# docker login ghcr.io
+# docker pull ghcr.io/fasheng/openwrt-buildsdk:21.02.3-ath79
 ```
 
 **编译**
 
 注意外部传入的volume目录Owner权限要设置为`1000:1000`或者将访问权限
-设置为`a+rwx`, 否则Docker内的openwrt用户没有访问权限.
+设置为`a+rwx`, 否则Docker内的openwrt用户无法访问.
 
 以编译ngrokc为例, 完整示例如下:
 ```

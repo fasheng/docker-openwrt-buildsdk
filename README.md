@@ -4,16 +4,18 @@ Full version and architecture OpenWrt build SDK Docker images
 
 Build from Dockerfile
 ```
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
+# docker build --tag fasheng/openwrt-buildsdk:21.02.3-ath79 --file dockerfiles/Dockerfile-21.02.3-ath79 .
 ```
 or build by switching tag
 ```
-$ git checkout 15.05.1-ar71xx
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
+$ git checkout 21.02.3-ath79
+# docker build --tag fasheng/openwrt-buildsdk:21.02.3-ath79 .
 ```
-or pull from docker hub(not working since 21.02.0)
+or pull from docker hub
 ```
-# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
+# docker pull fasheng/openwrt-buildsdk:21.02.3-ath79
+# docker login ghcr.io
+# docker pull ghcr.io/fasheng/openwrt-buildsdk:21.02.3-ath79
 ```
 
 **Compile**
@@ -39,7 +41,7 @@ docker> make  # remember disable global building settings/Cryptographically sign
 $ ls bin/packages
 ```
 
-**Support new SDK**
+**Support new SDK version**
 
 ```
 $ ./updater.sh gen_sdk_sources 22.03.0-rc4
