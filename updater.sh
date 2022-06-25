@@ -147,7 +147,7 @@ cmd_gen_git_tag() {
     if is_tag_exists "${tag}"; then
       msg "Ignore tag ${tag}, already exists"
     else
-      cp -vf "${f}" Dockerfile
+      cp -vf "${dockerfile}" Dockerfile
       git add -f Dockerfile
       git commit -m "Update Dockerfile for ${tag}"
       git tag "${tag}"
