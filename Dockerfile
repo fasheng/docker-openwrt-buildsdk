@@ -10,8 +10,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 21.02.2
-ENV OPENWRT_SDK_ARCH ramips-mt7620
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.2/targets/ramips/mt7620/openwrt-sdk-21.02.2-ramips-mt7620_gcc-8.4.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH ipq40xx
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.2/targets/ipq40xx/generic/openwrt-sdk-21.02.2-ipq40xx-generic_gcc-8.4.0_musl_eabi.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
