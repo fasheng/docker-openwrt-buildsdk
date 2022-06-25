@@ -1,5 +1,51 @@
 Full version and architecture OpenWrt build SDK Docker images
 
+**Deploy**
+
+Build from Dockerfile
+```
+# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
+```
+or build by switching tag
+```
+$ git checkout 15.05.1-ar71xx
+# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
+```
+or pull from docker hub(not working since 21.02.0)
+```
+# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
+```
+
+**Compile**
+
+The outside volume directory's ownership should be to `1000:1000` or
+set the permission to `a+rwx`, or the openwrt user in Docker could not
+access them.
+
+For example to compile `ngrokc`:
+```
+$ mkdir -p dl bin feeds
+# chown 1000:1000 dl bin feeds
+# docker run -ti --rm \
+    -v $(pwd)/dl:/home/openwrt/openwrtsdk/dl \
+    -v $(pwd)/bin:/home/openwrt/openwrtsdk/bin \
+    -v $(pwd)/feeds:/home/openwrt/openwrtsdk/feeds \
+    fasheng/openwrt-buildsdk:21.02.3-ath79
+docker> cd openwrtsdk
+docker> echo 'src-git custom https://github.com/kiddin9/openwrt-packages' >> feeds.conf.default
+docker> ./scripts/feeds update
+docker> ./scripts/feeds install ngrokc zlib kmod-cryptodev
+docker> make  # remember disable global building settings/Cryptographically sign package lists in menuconfig
+$ ls bin/packages
+```
+
+**Support new SDK**
+
+```
+$ ./updater.sh gen_sdk_sources 22.03.0-rc4
+$ ./updater.sh gen_dockerfiles 22.03.0-rc4 Dockerfile-21.02.0.ubuntu.tpl
+```
+
 **updater.sh usage**
 
 `updater.sh` used to generate Dockerfile files for different OpenWrt versions and architectures.
@@ -51,44 +97,6 @@ Full version and architecture OpenWrt build SDK Docker images
   $ ./updater.sh push_git_tags 21.02.3-ipq806x
   $ ./updater.sh push_git_tags 21.02.3-x86-64
   ```
-
-**Deploy**
-
-```
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
-```
-or
-```
-$ git checkout 15.05.1-ar71xx
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
-```
-or pull from docker hub(not works since 21.02.0)
-```
-# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
-```
-
-**Usage**
-
-The outside volume directory's ownership should be to `1000:1000` or
-set the permission to `a+rwx`, or the openwrt user in Docker could not
-access them.
-
-For example to compile `ngrokc`:
-```
-$ mkdir -p dl bin feeds
-# chown 1000:1000 dl bin feeds
-# docker run -ti --rm \
-    -v $(pwd)/dl:/home/openwrt/openwrtsdk/dl \
-    -v $(pwd)/bin:/home/openwrt/openwrtsdk/bin \
-    -v $(pwd)/feeds:/home/openwrt/openwrtsdk/feeds \
-    fasheng/openwrt-buildsdk:21.02.3-ath79
-docker> cd openwrtsdk
-docker> echo 'src-git custom https://github.com/kiddin9/openwrt-packages' >> feeds.conf.default
-docker> ./scripts/feeds update
-docker> ./scripts/feeds install ngrokc zlib kmod-cryptodev
-docker> make  # remember disable global building settings/Cryptographically sign package lists in menuconfig
-$ ls bin/packages
-```
 
 **References**
 - https://wiki.openwrt.org/doc/howto/obtain.firmware.sdk

@@ -1,5 +1,50 @@
 Full version and architecture OpenWrt build SDK Docker images
 
+**部署**
+
+通过Dockerfile构建
+```
+# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
+```
+或者通过切换tag构建
+```
+$ git checkout 15.05.1-ar71xx
+# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
+```
+或者从docker hub拉取镜像(21.02.0之后不可用)
+```
+# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
+```
+
+**编译**
+
+注意外部传入的volume目录Owner权限要设置为`1000:1000`或者将访问权限
+设置为`a+rwx`, 否则Docker内的openwrt用户没有访问权限.
+
+以编译ngrokc为例, 完整示例如下:
+```
+$ mkdir -p dl bin feeds
+# chown 1000:1000 dl bin feeds
+# docker run -ti --rm \
+    -v $(pwd)/dl:/home/openwrt/openwrtsdk/dl \
+    -v $(pwd)/bin:/home/openwrt/openwrtsdk/bin \
+    -v $(pwd)/feeds:/home/openwrt/openwrtsdk/feeds \
+    fasheng/openwrt-buildsdk:21.02.3-ath79
+docker> cd openwrtsdk
+docker> echo 'src-git custom https://github.com/kiddin9/openwrt-packages' >> feeds.conf.default
+docker> ./scripts/feeds update
+docker> ./scripts/feeds install ngrokc zlib kmod-cryptodev
+docker> make  # 记得在menuconfig界面禁用 global building settings/Cryptographically sign package lists 这一选项
+$ ls bin/packages
+```
+
+**支持新版SDK**
+
+```
+$ ./updater.sh gen_sdk_sources 22.03.0-rc4
+$ ./updater.sh gen_dockerfiles 22.03.0-rc4 Dockerfile-21.02.0.ubuntu.tpl
+```
+
 **updater.sh脚本简介**
 
 由于OpenWrt不同的版本和架构分别对应指定的SDK, 为了方便部署, 目录下
@@ -52,43 +97,6 @@ Full version and architecture OpenWrt build SDK Docker images
   $ ./updater.sh push_git_tags 21.02.3-ipq806x
   $ ./updater.sh push_git_tags 21.02.3-x86-64
   ```
-
-**部署**
-
-```
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx --file dockerfiles/Dockerfile-15.05.1-ar71xx .
-```
-或者
-```
-$ git checkout 15.05.1-ar71xx
-# docker build --tag fasheng/openwrt-buildsdk:15.05.1-ar71xx .
-```
-或者从docker hub拉取镜像(21.02.0之后不可用)
-```
-# docker pull fasheng/openwrt-buildsdk:15.05.1-ar71xx
-```
-
-**运行**
-
-注意外部传入的volume目录Owner权限要设置为`1000:1000`或者将访问权限
-设置为`a+rwx`, 否则Docker内的openwrt用户没有访问权限.
-
-以编译ngrokc为例, 完整示例如下:
-```
-$ mkdir -p dl bin feeds
-# chown 1000:1000 dl bin feeds
-# docker run -ti --rm \
-    -v $(pwd)/dl:/home/openwrt/openwrtsdk/dl \
-    -v $(pwd)/bin:/home/openwrt/openwrtsdk/bin \
-    -v $(pwd)/feeds:/home/openwrt/openwrtsdk/feeds \
-    fasheng/openwrt-buildsdk:21.02.3-ath79
-docker> cd openwrtsdk
-docker> echo 'src-git custom https://github.com/kiddin9/openwrt-packages' >> feeds.conf.default
-docker> ./scripts/feeds update
-docker> ./scripts/feeds install ngrokc zlib kmod-cryptodev
-docker> make  # 记得在menuconfig界面禁用 global building settings/Cryptographically sign package lists 这一选项
-$ ls bin/packages
-```
 
 **参考**
 - https://wiki.openwrt.org/doc/howto/obtain.firmware.sdk
