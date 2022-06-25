@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# gen all sdk sources
 ./updater.sh gen_sdk_sources 21.02.3
 ./updater.sh gen_sdk_sources 21.02.2
 ./updater.sh gen_sdk_sources 21.02.1
@@ -37,6 +38,7 @@
 ./updater.sh gen_sdk_sources 15.05   chaos_calmer
 ./updater.sh gen_sdk_sources 14.07   barrier_breaker
 
+# gen all dockerfiles
 ./updater.sh gen_dockerfiles 21.02.3 Dockerfile-21.02.0.alpine.tpl
 ./updater.sh gen_dockerfiles 21.02.2 Dockerfile-21.02.0.alpine.tpl
 ./updater.sh gen_dockerfiles 21.02.1 Dockerfile-21.02.0.alpine.tpl
@@ -73,3 +75,58 @@
 ./updater.sh gen_dockerfiles 15.05.1 Dockerfile-17.01.0.ubuntu.tpl
 ./updater.sh gen_dockerfiles 15.05   Dockerfile-17.01.0.ubuntu.tpl
 ./updater.sh gen_dockerfiles 14.07   Dockerfile-17.01.0.ubuntu.tpl
+
+# gen all tags for popular models
+models=(
+  ramips-mt7621
+  ath79
+  ramips-mt76x8
+  mediatek-mt7622
+  mvebu-cortexa9
+  ramips-mt7620
+  ipq40xx
+  bcm63xx
+  ipq806x
+  x86-64
+  x86
+  ar71xx
+)
+for m in ${models[@]}; do
+  echo "For model: ${m}"
+  ./updater.sh gen_git_tag 21.02.3-${m}
+  ./updater.sh gen_git_tag 21.02.2-${m}
+  ./updater.sh gen_git_tag 21.02.1-${m}
+  ./updater.sh gen_git_tag 21.02.0-${m}
+  ./updater.sh gen_git_tag 19.07.10-${m}
+  ./updater.sh gen_git_tag 19.07.9-${m}
+  ./updater.sh gen_git_tag 19.07.8-${m}
+  ./updater.sh gen_git_tag 19.07.7-${m}
+  ./updater.sh gen_git_tag 19.07.6-${m}
+  ./updater.sh gen_git_tag 19.07.5-${m}
+  ./updater.sh gen_git_tag 19.07.4-${m}
+  ./updater.sh gen_git_tag 19.07.3-${m}
+  ./updater.sh gen_git_tag 19.07.2-${m}
+  ./updater.sh gen_git_tag 19.07.1-${m}
+  ./updater.sh gen_git_tag 19.07.0-${m}
+  ./updater.sh gen_git_tag 18.06.9-${m}
+  ./updater.sh gen_git_tag 18.06.8-${m}
+  ./updater.sh gen_git_tag 18.06.7-${m}
+  ./updater.sh gen_git_tag 18.06.6-${m}
+  ./updater.sh gen_git_tag 18.06.5-${m}
+  ./updater.sh gen_git_tag 18.06.4-${m}
+  ./updater.sh gen_git_tag 18.06.3-${m}
+  ./updater.sh gen_git_tag 18.06.2-${m}
+  ./updater.sh gen_git_tag 18.06.1-${m}
+  ./updater.sh gen_git_tag 18.06.0-${m}
+  ./updater.sh gen_git_tag 17.01.7-${m}
+  ./updater.sh gen_git_tag 17.01.6-${m}
+  ./updater.sh gen_git_tag 17.01.5-${m}
+  ./updater.sh gen_git_tag 17.01.4-${m}
+  ./updater.sh gen_git_tag 17.01.3-${m}
+  ./updater.sh gen_git_tag 17.01.2-${m}
+  ./updater.sh gen_git_tag 17.01.1-${m}
+  ./updater.sh gen_git_tag 17.01.0-${m}
+  ./updater.sh gen_git_tag 15.05.1-${m}
+  ./updater.sh gen_git_tag 15.05-${m}
+  ./updater.sh gen_git_tag 14.07-${m}
+done
