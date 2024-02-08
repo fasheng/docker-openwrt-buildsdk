@@ -7,9 +7,9 @@ RUN apt-get install -y build-essential gawk gcc-multilib flex git gettext libncu
 RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
-ENV OPENWRT_SDK_VERSION 22.03.5
-ENV OPENWRT_SDK_ARCH zynq
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/zynq/generic/openwrt-sdk-22.03.5-zynq_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_VERSION 23.05.1
+ENV OPENWRT_SDK_ARCH apm821xx-nand
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/apm821xx/nand/openwrt-sdk-23.05.1-apm821xx-nand_gcc-12.3.0_musl.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
