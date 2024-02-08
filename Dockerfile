@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 21.02.7
-ENV OPENWRT_SDK_ARCH arc770
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.7/targets/arc770/generic/openwrt-sdk-21.02.7-arc770-generic_gcc-8.4.0_glibc.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH archs38
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/21.02.7/targets/archs38/generic/openwrt-sdk-21.02.7-archs38-generic_gcc-8.4.0_glibc.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
