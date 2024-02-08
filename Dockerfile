@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 23.05.1
-ENV OPENWRT_SDK_ARCH mediatek-mt7622
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/mediatek/mt7622/openwrt-sdk-23.05.1-mediatek-mt7622_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH mediatek-mt7623
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/mediatek/mt7623/openwrt-sdk-23.05.1-mediatek-mt7623_gcc-12.3.0_musl_eabi.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
