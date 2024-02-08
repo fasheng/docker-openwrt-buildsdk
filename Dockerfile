@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 23.05.1
-ENV OPENWRT_SDK_ARCH ath79-tiny
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/ath79/tiny/openwrt-sdk-23.05.1-ath79-tiny_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH bcm27xx-bcm2708
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/bcm27xx/bcm2708/openwrt-sdk-23.05.1-bcm27xx-bcm2708_gcc-12.3.0_musl_eabi.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
