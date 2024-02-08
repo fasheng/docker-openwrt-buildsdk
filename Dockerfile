@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 23.05.1
-ENV OPENWRT_SDK_ARCH ath79-mikrotik
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/ath79/mikrotik/openwrt-sdk-23.05.1-ath79-mikrotik_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH ath79-nand
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/ath79/nand/openwrt-sdk-23.05.1-ath79-nand_gcc-12.3.0_musl.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
