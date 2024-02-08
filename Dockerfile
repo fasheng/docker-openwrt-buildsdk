@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 22.03.5
-ENV OPENWRT_SDK_ARCH layerscape-armv7
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/layerscape/armv7/openwrt-sdk-22.03.5-layerscape-armv7_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH layerscape-armv8_64b
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/layerscape/armv8_64b/openwrt-sdk-22.03.5-layerscape-armv8_64b_gcc-11.2.0_musl.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
