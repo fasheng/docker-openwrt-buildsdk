@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 22.03.5
-ENV OPENWRT_SDK_ARCH ipq40xx-mikrotik
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/ipq40xx/mikrotik/openwrt-sdk-22.03.5-ipq40xx-mikrotik_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH ipq806x
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/ipq806x/generic/openwrt-sdk-22.03.5-ipq806x-generic_gcc-11.2.0_musl_eabi.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
