@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 23.05.1
-ENV OPENWRT_SDK_ARCH lantiq-xway_legacy
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/lantiq/xway_legacy/openwrt-sdk-23.05.1-lantiq-xway_legacy_gcc-12.3.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH layerscape-armv7
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/23.05.1/targets/layerscape/armv7/openwrt-sdk-23.05.1-layerscape-armv7_gcc-12.3.0_musl_eabi.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
