@@ -82,22 +82,24 @@ $ ./updater.sh gen_dockerfiles 22.03.0-rc4 Dockerfile-21.02.0.ubuntu.tpl
 
 - Generate current repo git tags
   ```
-  $ ./updater.sh gen_git_tags
+  $ git checkout gentags
+  $ git merge master
+  $ ./updater.sh gen_git_tags 21.02.3
   ```
 
-- Upload git tags to trigger the build job in Docker Hub, note do not
-  use `git push --tags` manually
+- Upload git tags to trigger the Github Action to build and push
+  docker image to docker hub and ghcr.io, note do not use `git push --tags` manually
   ```
-  $ ./updater.sh push_git_tags 21.02.3-ramips-mt7621
-  $ ./updater.sh push_git_tags 21.02.3-ath79
-  $ ./updater.sh push_git_tags 21.02.3-ramips-mt76x8
-  $ ./updater.sh push_git_tags 21.02.3-mediatek-mt7622
-  $ ./updater.sh push_git_tags 21.02.3-mvebu-cortexa9
-  $ ./updater.sh push_git_tags 21.02.3-ramips-mt7620
-  $ ./updater.sh push_git_tags 21.02.3-ipq40xx
-  $ ./updater.sh push_git_tags 21.02.3-bcm63xx
-  $ ./updater.sh push_git_tags 21.02.3-ipq806x
-  $ ./updater.sh push_git_tags 21.02.3-x86-64
+  $ ./updater.sh trigger_github_action github 21.02.3-ramips-mt7621
+  $ ./updater.sh trigger_github_action github 21.02.3-ath79
+  $ ./updater.sh trigger_github_action github 21.02.3-ramips-mt76x8
+  $ ./updater.sh trigger_github_action github 21.02.3-mediatek-mt7622
+  $ ./updater.sh trigger_github_action github 21.02.3-mvebu-cortexa9
+  $ ./updater.sh trigger_github_action github 21.02.3-ramips-mt7620
+  $ ./updater.sh trigger_github_action github 21.02.3-ipq40xx
+  $ ./updater.sh trigger_github_action github 21.02.3-bcm63xx
+  $ ./updater.sh trigger_github_action github 21.02.3-ipq806x
+  $ ./updater.sh trigger_github_action github 21.02.3-x86-64
   ```
 
 **References**

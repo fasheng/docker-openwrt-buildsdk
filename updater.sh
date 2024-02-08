@@ -175,21 +175,34 @@ cmd_push_git_branches() {
   done
 }
 
-# arg1: [filter]
-cmd_push_git_tags() {
-  # use this instead of "git push --tags" to trigger docker hub
-  # autobuild
+# arg1: <remote> arg2: <tag>
+# use this instead of "git push --tags" to trigger github action to
+# build and push docker image to docker hub and ghcr.io
+cmd_trigger_github_action() {
+  if [ $# -lt 2 ]; then
+    abort "Need at least two arguments"
+  fi
+
+  local remote="${1}"
+  local tag="${2}"
+  msg "git push ${remote} ${tag}"
+  git push "${remote}" "${tag}" --delete 2>/dev/null
+  git push "${remote}" "${tag}" --force
+  sleep 5
+}
+
+# arg1: [remote] arg2: [filter]
+cmd_trigger_github_actions() {
+  local remote="${1:-github}"
+  local filter="${2}"
   local tags
-  if [ -n "${1}" ]; then
-    tags=$(git tag | grep "${1}")
+  if [ -n "${filter}" ]; then
+    tags=$(git tag | grep "${filter}")
   else
     tags=$(git tag)
   fi
-  local r=github
   for t in ${tags}; do
-    msg "git push ${r} ${t}:${t}"
-    git push "${r}" "${t}:${t}" --force
-    sleep 5
+    cmd_trigger_github_action "${remote}" "${t}"
   done
 }
 
