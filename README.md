@@ -82,7 +82,9 @@ $ ./updater.sh gen_dockerfiles 22.03.0-rc4 Dockerfile-21.02.0.ubuntu.tpl
 
 - Generate current repo git tags
   ```
-  $ ./updater.sh gen_git_tags
+  $ git checkout gentags
+  $ git merge master
+  $ ./updater.sh gen_git_tags 21.02.3
   ```
 
 - Upload git tags to trigger the Github Action to build and push

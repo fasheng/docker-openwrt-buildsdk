@@ -82,7 +82,9 @@ $ ./updater.sh gen_dockerfiles 22.03.0-rc4 Dockerfile-21.02.0.ubuntu.tpl
 
 - 更新对应的git tags
   ```
-  $ ./updater.sh gen_git_tags
+  $ git checkout gentags
+  $ git merge master
+  $ ./updater.sh gen_git_tags 21.02.3
   ```
 
 - 上传git tags, 用于触发Github Action自动化构建, 注意避免直接使用 `git push
