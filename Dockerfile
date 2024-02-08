@@ -8,8 +8,8 @@ RUN useradd -m -u 1000 -U openwrt &&\
     echo 'openwrt ALL=NOPASSWD: ALL' > /etc/sudoers.d/openwrt
 
 ENV OPENWRT_SDK_VERSION 22.03.5
-ENV OPENWRT_SDK_ARCH realtek-rtl930x
-ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/realtek/rtl930x/openwrt-sdk-22.03.5-realtek-rtl930x_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+ENV OPENWRT_SDK_ARCH realtek-rtl931x
+ENV OPENWRT_SDK_URL https://downloads.openwrt.org/releases/22.03.5/targets/realtek/rtl931x/openwrt-sdk-22.03.5-realtek-rtl931x_gcc-11.2.0_musl.Linux-x86_64.tar.xz
 RUN sudo -iu openwrt wget --tries=3 "${OPENWRT_SDK_URL}" &&\
     sudo -iu openwrt tar xf "$(basename ${OPENWRT_SDK_URL})" &&\
     sudo -iu openwrt rm -f "$(basename ${OPENWRT_SDK_URL})" &&\
